@@ -1,0 +1,909 @@
+{
+	"info": {
+		"_postman_id": "879ada69-d299-4423-a840-ee9ed7c5a786",
+		"name": "RoR Interview New (simple JSON API)",
+		"description": "The following are a set of HTTP actions and tests that outline the requirements of a basic restful tag/task web application.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "01. Tags",
+			"item": [
+				{
+					"name": "Tags Index",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Existing Title check\"] = jsonData.map((tag) => tag.title) === [\"Home\", \"Today\", \"Work\"];"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/tags",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"tags"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Initial Response Example",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v1/tags",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"tags"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "max-age=0, private, must-revalidate",
+									"name": "Cache-Control",
+									"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"name": "Content-Type",
+									"description": "The mime type of this content"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e4d388d8d68844a6e7b91c59b4453f09\"",
+									"name": "ETag",
+									"description": "An identifier for a specific version of a resource, often a message digest"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"name": "Transfer-Encoding",
+									"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "90e55c85-49ad-4707-9b99-a4241be32a7b",
+									"name": "X-Request-Id",
+									"description": "Custom header"
+								},
+								{
+									"key": "X-Runtime",
+									"value": "0.009249",
+									"name": "X-Runtime",
+									"description": "Custom header"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\":\"1\",\n        \"title\":\"Home\",\n        \"created_at\": \"2021-05-14T09:52:55+00:00\",\n        \"updated_at\": \"2021-05-14T09:52:55+00:00\"\n    },\n    {\n        \"id\":\"2\",\n        \"title\":\"Today\",\n        \"created_at\": \"2021-05-14T09:52:55+00:00\",\n        \"updated_at\": \"2021-05-14T09:52:55+00:00\"\n    },\n    {\n        \"id\":\"3\",\n        \"title\":\"Work\",\n        \"created_at\": \"2021-05-14T09:52:55+00:00\",\n        \"updated_at\": \"2021-05-14T09:52:55+00:00\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Create Tag",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Created Title check\"] = jsonData.title === \"Urgent\";",
+									"tests[\"ID exists check\"] = jsonData.id === \"4\";"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\":\"Urgent\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/tags",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"tags"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Response Example",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\":\"Urgent\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/tags",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"tags"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "max-age=0, private, must-revalidate",
+									"name": "Cache-Control",
+									"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"name": "Content-Type",
+									"description": "The mime type of this content"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"0a017e989a4fa6347ec090a444e4921f\"",
+									"name": "ETag",
+									"description": "An identifier for a specific version of a resource, often a message digest"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"name": "Transfer-Encoding",
+									"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "03589c19-f460-4849-9b73-acc788a137a6",
+									"name": "X-Request-Id",
+									"description": "Custom header"
+								},
+								{
+									"key": "X-Runtime",
+									"value": "0.013622",
+									"name": "X-Runtime",
+									"description": "Custom header"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\":\"4\",\n    \"title\":\"Urgent\",\n    \"created_at\": \"2021-05-14T09:52:55+00:00\",\n    \"updated_at\": \"2021-05-14T09:52:55+00:00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Tag",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Created Title check\"] = jsonData.title === \"Very  Urgent\";",
+									"tests[\"ID exists check\"] = jsonData.data.id  === \"4\";",
+									"tests[\"timestamp\"] = Date.now() >= Date.parse(jsonData.updated_at) && Date.parse(jsonData.updated_at) > Date.parse(jsonData.created_at);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"4\",\n    \"title\":\"Very Urgent\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/tags/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"tags",
+								"4"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Response Example",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\":\"4\",\n    \"title\":\"Very Urgent\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/tags/4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"tags",
+										"4"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "max-age=0, private, must-revalidate",
+									"name": "Cache-Control",
+									"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"name": "Content-Type",
+									"description": "The mime type of this content"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4083679bd357dfd0ff19d911f3ee98c8\"",
+									"name": "ETag",
+									"description": "An identifier for a specific version of a resource, often a message digest"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"name": "Transfer-Encoding",
+									"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "2a7393a5-6c2e-4959-93d8-1c8b96fb83ab",
+									"name": "X-Request-Id",
+									"description": "Custom header"
+								},
+								{
+									"key": "X-Runtime",
+									"value": "0.014389",
+									"name": "X-Runtime",
+									"description": "Custom header"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\":\"4\",\n    \"title\":\"Very Urgent\",\n    \"created_at\": \"2021-05-14T09:52:55+00:00\",\n    \"updated_at\": \"2021-05-14T09:55:55+00:00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Tags index (final)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Existing Title check\"] = jsonData.map((tag) => tag.title) === [\"Home\", \"Today\", \"Work\", \"Very Urgent\"];"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/tags",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"tags"
+							]
+						},
+						"description": "Todos Index"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "02. Tasks",
+			"item": [
+				{
+					"name": "Tasks Index",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Existing task title check\"] = (jsonData[0].title === \"Wash laundry\") && (jsonData[1].title === \"Prepare Q1 report\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"tasks"
+							]
+						},
+						"description": "Todos Index"
+					},
+					"response": [
+						{
+							"name": "Initial Response Example",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v1/tasks",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"tasks"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "max-age=0, private, must-revalidate",
+									"name": "Cache-Control",
+									"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"name": "Content-Type",
+									"description": "The mime type of this content"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"99d05c17b773d3c017512602caa4d14c\"",
+									"name": "ETag",
+									"description": "An identifier for a specific version of a resource, often a message digest"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"name": "Transfer-Encoding",
+									"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "ed9da2d8-3d18-4e0d-ba3e-6b84da4c193b",
+									"name": "X-Request-Id",
+									"description": "Custom header"
+								},
+								{
+									"key": "X-Runtime",
+									"value": "0.213865",
+									"name": "X-Runtime",
+									"description": "Custom header"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\":\"1\",\n        \"title\":\"Wash laundry\",\n        \"tags\": [\"Home\", \"Today\"],\n        \"created_at\": \"2021-05-14T09:52:55+00:00\",\n        \"updated_at\": \"2021-05-14T09:52:55+00:00\"\n    },\n    {\n        \"id\":\"2\",\n        \"title\":\"Prepare Q1 report\",\n        \"tags\": [\"Today\", \"Work\"],\n        \"created_at\": \"2021-05-14T09:52:55+00:00\",\n        \"updated_at\": \"2021-05-14T09:52:55+00:00\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Create Task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Created Title check\"] = jsonData.title === \"Do Homework\";",
+									"tests[\"ID exists check\"] = !isNaN(parseInt(jsonData.id, 10));",
+									"tests[\"timestamps\"] = Date.now() >= Date.parse(jsonData.updated_at) && Date.now() >= Date.parse(jsonData.created_at);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Do Homework\",\n    \"tags\": []\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"tasks"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Response Example",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\":\"Do Homework\",\n    \"tags\": []\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/tasks",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"tasks"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "max-age=0, private, must-revalidate",
+									"name": "Cache-Control",
+									"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"name": "Content-Type",
+									"description": "The mime type of this content"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1724d68d668d4974067ea120ce7a06e4\"",
+									"name": "ETag",
+									"description": "An identifier for a specific version of a resource, often a message digest"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"name": "Transfer-Encoding",
+									"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "1308fb34-2e93-4799-ba74-ef8693401353",
+									"name": "X-Request-Id",
+									"description": "Custom header"
+								},
+								{
+									"key": "X-Runtime",
+									"value": "0.018786",
+									"name": "X-Runtime",
+									"description": "Custom header"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\":\"3\",\n    \"title\":\"Do Homework\",\n    \"tags\": [],\n    \"created_at\": \"2021-05-14T09:52:55+00:00\",\n    \"updated_at\": \"2021-05-14T09:52:55+00:00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Created Title check\"] = jsonData.title === \"Do Homework well\";",
+									"tests[\"ID exists check\"] = parseInt(jsonData.id, 10) === 3;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\t\n    \"title\":\"Do Homework well\",\n    \"tags\": []\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/tasks/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"tasks",
+								"3"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Response Example",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\":\"Do Homework well\",\n    \"tags\": []\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/tasks/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"tasks",
+										"3"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "max-age=0, private, must-revalidate",
+									"name": "Cache-Control",
+									"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"name": "Content-Type",
+									"description": "The mime type of this content"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"f6dd4bdeebccd3f57a762601de6d5c5f\"",
+									"name": "ETag",
+									"description": "An identifier for a specific version of a resource, often a message digest"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"name": "Transfer-Encoding",
+									"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "1f2e113a-5320-47d1-b1e8-95c9a12670dd",
+									"name": "X-Request-Id",
+									"description": "Custom header"
+								},
+								{
+									"key": "X-Runtime",
+									"value": "0.015038",
+									"name": "X-Runtime",
+									"description": "Custom header"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\":\"3\",\n    \"title\":\"Do Homework well\",\n    \"tags\": [],\n    \"created_at\": \"2021-05-14T09:52:55+00:00\",\n    \"updated_at\": \"2021-05-14T09:55:55+00:00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Task with Tag (Expect Tags)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Created Title check\"] = jsonData.title === \"Do Homework well\";",
+									"tests[\"ID exists check\"] = jsonData.id  === \"3\";",
+									"tests[\"Added Tags check\"] = jsonData.tags.includes(\"Home\") && jsonData.tags.includes(\"Urgent\");",
+									"tests[\"timestamp\"] = Date.now() >= Date.parse(jsonData.updated_at) && Date.parse(jsonData.updated_at) > Date.parse(jsonData.created_at);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\t\n    \"title\":\"Do Homework well\",\n    \"tags\": [\"Home\", \"Urgent\"]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/tasks/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"tasks",
+								"3"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Response with tags attached",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\t\n    \"title\":\"Do Homework well\",\n    \"tags\": [\"Home\", \"Urgent\"]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/tasks/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"tasks",
+										"3"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "max-age=0, private, must-revalidate",
+									"name": "Cache-Control",
+									"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"name": "Content-Type",
+									"description": "The mime type of this content"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"ae031af536093469b0aea0e1dbb35eb3\"",
+									"name": "ETag",
+									"description": "An identifier for a specific version of a resource, often a message digest"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"name": "Transfer-Encoding",
+									"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "6f4ca3f1-5a2d-4163-af92-44e363fc84f8",
+									"name": "X-Request-Id",
+									"description": "Custom header"
+								},
+								{
+									"key": "X-Runtime",
+									"value": "0.045270",
+									"name": "X-Runtime",
+									"description": "Custom header"
+								}
+							],
+							"cookie": [],
+							"body": "{\t\n    \"id\":\"3\",\n    \"title\":\"Do Homework well\",\n    \"tags\": [\"Home\", \"Urgent\"],\n    \"created_at\": \"2021-05-14T09:52:55+00:00\",\n    \"updated_at\": \"2021-05-14T09:55:55+00:00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Tasks Index (Expect Tags)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Existing Title check\"] = jsonData.map((task) => task.title) === [\"Wash laundry\", \"Prepare Q1 report\", \"Do Homework well\"];",
+									"tests[\"Existing Tag Title check\"] = jsonData.map((task) => task.tags) === [[\"Home\", \"Today\"], [\"Today\", \"Work\"], [\"Home\", \"Urgent\"]];"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"tasks"
+							]
+						},
+						"description": "Todos Index"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
