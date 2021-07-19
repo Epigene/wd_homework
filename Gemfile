@@ -23,10 +23,9 @@ gem "rails", "~> 6.0.3.6"
 gem "sprockets", "~> 3.7.2"
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", "~> 1.4.2"
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-# gem 'jbuilder', '~> 2.5'
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+
+# Use Puma as the app server
+gem "puma", "~> 5.3"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.1.0", require: false
@@ -45,12 +44,14 @@ group :development do
 end
 
 group :development, :test do
+  gem "bullet", ">= 6.1"
   gem "pry-rails", ">= 0.3"
   gem "rspec_junit_formatter", "~> 0.4"
   gem "rspec-rails", "~> 5.0"
 end
 
 group :test do
+  gem "factory_bot_rails", "~> 6.2"
   gem "shoulda-matchers", "~> 5.0", require: false
   gem "simplecov", "~> 0.21", require: false
 end

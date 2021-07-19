@@ -1,24 +1,32 @@
 # README
+A simple task managament app, developed as a "homework" for Workday.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Things of note
+1. API #index endpoints generally implement [cursor pagination](https://jsonapi.org/profiles/ethanresnick/cursor-pagination/) for good performance (as opposed to offset pagination).
+2. FactoryBot is used only as a wrapper for calling appropriate creaton interactors (trailblazer-style).
 
-Things you may want to cover:
+## Setup
+```
+$ rvm install 2.7.4
+$ rvm use 2.7.4@wd --create
+$ gem update --system
+$ bundle
+$ rails db:create db:migrate db:seed
+```
 
-* Ruby version
+## Running postman specs
+```
+$ rails s -b 127.0.0.1 -p 3000
+TODO
+```
 
-* System dependencies
+## Running RSpec
+```
+$ rspec
+# check soverage/ for 100% cov
+```
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Running rubocop
+```
+$ rubocop -c .rubocop.yml
+```

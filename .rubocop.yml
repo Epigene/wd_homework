@@ -141,7 +141,14 @@ AllCops:
     rubocop-rake: [rake]
 
 Bundler/GemComment:
-  Enabled: false    
+  Enabled: false   
+
+Layout/IndentationConsistency:
+  EnforcedStyle: indented_internal_methods
+Layout/RedundantLineBreak:
+  Enabled: false  
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
 
 Lint/ConstantResolution:
   Enabled: false
@@ -153,7 +160,8 @@ Style/Documentation:
     - "db/migrate/**/*"
 Style/DocumentationMethod:
   Exclude:
-    - "db/migrate/**/*"    
+    - "db/migrate/**/*"
+    - "spec/**/*"
 Style/InlineComment:
   Enabled: false
 Style/MethodCallWithArgsParentheses:
