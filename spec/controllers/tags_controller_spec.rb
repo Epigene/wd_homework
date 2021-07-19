@@ -123,5 +123,21 @@ RSpec.describe TagsController, type: :request do
         expect(response.body).to contain('"errors":')
       end
     end
+
+    context "when there is no record by id specified in request params" do
+      let(:not_found_outcome) { {success: false, tag: nil} }
+
+      it "responds with 404, not found" do
+        expect(Tag::Updater).to(
+          receive(:call).with(params: hash_including(test: "t")).once.
+          and_return(not_found_outcome)
+        )
+
+        make_request
+
+        expect(response.code).to eq("404")
+        expect(response.body).to eq("{}")
+      end
+    end
   end
 end

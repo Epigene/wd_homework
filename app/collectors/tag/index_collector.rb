@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
+# Tag::IndexCollector.call(params: params)
 class Tag::IndexCollector
   include ServiceApi
   include CursorPagination
 
-  def initialize(params:)
-    @params = params
-  end
+  private
 
-  def call
-
-  end
+    def base_collection
+      Tag.all
+    end
 end

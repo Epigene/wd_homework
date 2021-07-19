@@ -12,9 +12,18 @@ module CursorPagination
   MAX_PAGE_SIZE = 50
 
   included do
-    # before_action :validate_page_size, only: :index
-    # before_action :validate_pagination_cursor, only: :index
-    # before_action :validate_no_range_pagination, only: :index
+    attr_reader :params
+  end
+
+  def initialize(params:)
+    @params = params
+  end
+
+  # @return [Hash, Array]
+  #  If a hash is returned, it signifies an error.
+  def call
+    validate_cursor_pagination_params! ||
+      page_records_by_single_cursor(collection: base_collection).to_a
   end
 
   private
@@ -52,6 +61,11 @@ module CursorPagination
       collection.order(cursor_field => regular_order).limit(page_size)
     end
 
+    # @return [Hash, nil]
+    def validate_cursor_pagination_params!
+      validate_page_size || validate_pagination_cursor || validate_no_range_pagination
+    end
+
     def page_size
       @page_size ||=
         params.dig(:page, :size).presence ||
@@ -63,11 +77,11 @@ module CursorPagination
       return if size.blank?
 
       unless size.match?(POSITIVE_INTEGER_REGEX)
-        return render(json: non_positive_page_size_error_data, status: :bad_request)
+        return {json: non_positive_page_size_error_data, status: :bad_request}
       end
 
       if size.to_i > send(:class)::MAX_PAGE_SIZE
-        return render(json: too_large_page_size_error_data, status: :bad_request)
+        return {json: too_large_page_size_error_data, status: :bad_request}
       end
 
       nil
@@ -77,13 +91,13 @@ module CursorPagination
       after_cursor = params.dig(:page, :after)
 
       if after_cursor.present? && !after_cursor.match?(POSITIVE_INTEGER_REGEX)
-        return render(json: non_positive_cursor_error_data(:after), status: :bad_request)
+        return {json: non_positive_cursor_error_data(:after), status: :bad_request}
       end
 
       before_cursor = params.dig(:page, :before)
 
       if before_cursor.present? && !before_cursor.match?(POSITIVE_INTEGER_REGEX)
-        return render(json: non_positive_cursor_error_data(:before), status: :bad_request)
+        return {json: non_positive_cursor_error_data(:before), status: :bad_request}
       end
 
       nil
@@ -95,7 +109,7 @@ module CursorPagination
 
       return unless after_cursor.present? && before_cursor.present?
 
-      render(json: range_pagination_error_data, status: :bad_request)
+      {json: range_pagination_error_data, status: :bad_request}
     end
 
     def range_pagination_error_data

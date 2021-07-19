@@ -26,6 +26,8 @@ class TagsController < ApplicationController
     def render_outcome(outcome)
       if outcome[:success]
         render(json: outcome[:tag], adapter: :json)
+      elsif outcome[:tag].blank?
+        render(json: {}, status: :not_found)
       else
         render(json: {errors: invalid_record_errors(outcome[:tag])}, status: :bad_request)
       end
