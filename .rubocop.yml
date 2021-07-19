@@ -142,8 +142,14 @@ Layout/LineLength:
     - ^\s*class
     - ^\s*module
     - ^\s*describe
-Layout/RedundantLineBreak:
-  Enabled: false  
+Layout/RedundantLineBreak:  
+  Enabled: false
+Layout/SingleLineBlockChain:
+  Exclude:
+    - "spec/**/*"
+Layout/SpaceBeforeBlockBraces:
+  Exclude:
+    - "spec/**/*"
 Layout/SpaceInsideHashLiteralBraces:
   EnforcedStyle: no_space
 
@@ -167,6 +173,8 @@ RSpec/AlignRightLetBrace:
   Enabled: false
 RSpec/ExampleLength:
   Max: 100
+RSpec/ExpectChange:
+  EnforcedStyle: block
 RSpec/ImplicitSubject:
   Enabled: false  
 RSpec/MessageExpectation:
@@ -176,6 +184,8 @@ RSpec/MessageSpies:
 RSpec/MultipleExpectations:
   Max: 10  
 
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
 Style/ConstantVisibility:
   Enabled: false
 Style/Copyright:

@@ -5,6 +5,8 @@ class TaskTag < ApplicationRecord
 
   belongs_to :task
   belongs_to :tag
+
+  validates :tag_id, :task_id, presence: true
 end
 
 # == Schema Information

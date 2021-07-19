@@ -3,7 +3,7 @@ A simple task managament app, developed as a "homework" for Workday.
 
 ## Things of note
 1. API #index endpoints generally implement [cursor pagination](https://jsonapi.org/profiles/ethanresnick/cursor-pagination/) for good performance (as opposed to offset pagination).
-2. FactoryBot is used only as a wrapper for calling appropriate creaton interactors (trailblazer-style).
+2. FK constraints are not used due to sqlite DB, would be on MySQL or Postgres.
 
 ## Setup
 ```
