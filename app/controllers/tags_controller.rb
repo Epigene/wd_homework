@@ -1,22 +1,33 @@
 # frozen_string_literal: true
 
+# CRUD actions for Tag resource
 class TagsController < ApplicationController
-  include CursorPagination
-
-  # GET
+  # GET /api/v1/tags
   def index
-    render json: page_records
+    render(json: Tag::IndexCollector.call(params: clean_params))
   end
 
-  # POST
-  def create; end
+  # POST /api/v1/tags
+  def create
+    outcome = Tag::Creator.call(params: clean_params)
 
-  # PUT
-  def update; end
+    render_outcome(outcome)
+  end
+
+  # PUT api/v1/tags/:id
+  def update
+    outcome = Tag::Updater.call(params: clean_params)
+
+    render_outcome(outcome)
+  end
 
   private
 
-    def page_records
-      page_records_by_single_cursor(collection: Tag.all)
+    def render_outcome(outcome)
+      if outcome[:success]
+        render(json: outcome[:tag], adapter: :json)
+      else
+        render(json: {errors: invalid_record_errors(outcome[:tag])}, status: :bad_request)
+      end
     end
 end

@@ -31,6 +31,7 @@ gem "puma", "~> 5.3"
 gem "bootsnap", ">= 1.1.0", require: false
 
 group :development do
+  gem "annotate", ">= 3.1"
   gem "listen", ">= 3.0.5", "< 3.2"
 
   gem "rspec-scaffold", "2.0.0.beta1"
@@ -54,4 +55,5 @@ group :test do
   gem "factory_bot_rails", "~> 6.2"
   gem "shoulda-matchers", "~> 5.0", require: false
   gem "simplecov", "~> 0.21", require: false
+  gem "timecop", ">= 0.9"
 end

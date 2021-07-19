@@ -2,9 +2,10 @@
 
 ENV["RAILS_ENV"] = "test"
 require "spec_helper"
-require "cov_helper"
+require "cov_helper" if ENV["COV"]
 require File.expand_path("../config/environment", __dir__)
 require "rspec/rails"
+Rails.application.eager_load! if ENV["COV"]
 
 Dir[Rails.root.join("spec/support/**/*.rb")].sort.each { |f| require f }
 

@@ -1,21 +1,20 @@
 # frozen_string_literal: true
 
+# Incude in controllers whose #index action will use cursor-style pagination.
+# Exposes page[size], page[after], and page[before] query params.
+#
+# Range pagination is not supported by default.
+# Override #validate_no_range_pagination to do nothing if supported is developed.
 module CursorPagination
-  # Incude in controllers whose #index action will use cursor-style pagination.
-  # Exposes page[size], page[after], and page[before] query params.
-
-  # Range pagination is not supported by default.
-  # Override #validate_no_range_pagination to do nothing if supported is developed.
-
   extend ActiveSupport::Concern
 
   DEFAULT_PAGE_SIZE = 10
   MAX_PAGE_SIZE = 50
 
   included do
-    before_action :validate_page_size, only: :index
-    before_action :validate_pagination_cursor, only: :index
-    before_action :validate_no_range_pagination, only: :index
+    # before_action :validate_page_size, only: :index
+    # before_action :validate_pagination_cursor, only: :index
+    # before_action :validate_no_range_pagination, only: :index
   end
 
   private
@@ -56,7 +55,7 @@ module CursorPagination
     def page_size
       @page_size ||=
         params.dig(:page, :size).presence ||
-        send(:class)::DEFAULT_PAGE_SIZE
+        __send__(:class)::DEFAULT_PAGE_SIZE
     end
 
     def validate_page_size
@@ -64,11 +63,11 @@ module CursorPagination
       return if size.blank?
 
       unless size.match?(POSITIVE_INTEGER_REGEX)
-        return render(json: non_positive_page_size_error_data, status: 400)
+        return render(json: non_positive_page_size_error_data, status: :bad_request)
       end
 
       if size.to_i > send(:class)::MAX_PAGE_SIZE
-        return render(json: too_large_page_size_error_data, status: 400)
+        return render(json: too_large_page_size_error_data, status: :bad_request)
       end
 
       nil
@@ -78,13 +77,13 @@ module CursorPagination
       after_cursor = params.dig(:page, :after)
 
       if after_cursor.present? && !after_cursor.match?(POSITIVE_INTEGER_REGEX)
-        return render(json: non_positive_cursor_error_data(:after), status: 400)
+        return render(json: non_positive_cursor_error_data(:after), status: :bad_request)
       end
 
       before_cursor = params.dig(:page, :before)
 
       if before_cursor.present? && !before_cursor.match?(POSITIVE_INTEGER_REGEX)
-        return render(json: non_positive_cursor_error_data(:before), status: 400)
+        return render(json: non_positive_cursor_error_data(:before), status: :bad_request)
       end
 
       nil
@@ -96,7 +95,7 @@ module CursorPagination
 
       return unless after_cursor.present? && before_cursor.present?
 
-      render(json: range_pagination_error_data, status: 400)
+      render(json: range_pagination_error_data, status: :bad_request)
     end
 
     def range_pagination_error_data

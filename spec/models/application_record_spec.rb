@@ -8,11 +8,11 @@ RSpec.describe ApplicationRecord do
     let(:described_class) { Tag }
 
     let!(:tag1) do
-      Timecop.freeze("2019-06-13 12:00") { create(:tag) }
+      Timecop.freeze("2021-01-01 12:00") { create(:tag) }
     end
 
     let!(:tag2) do
-      Timecop.freeze("2020-07-19 14:15:16") { create(:tag) }
+      Timecop.freeze("2021-09-19 14:15:16") { create(:tag) }
     end
 
     it "returns correct collection of records based on stamp value" do

@@ -61,6 +61,9 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2, >= 2.2.2)
+    annotate (3.1.1)
+      activerecord (>= 3.2, < 7.0)
+      rake (>= 10.4, < 14.0)
     ast (2.4.2)
     bootsnap (1.7.3)
       msgpack (~> 1.0)
@@ -229,6 +232,7 @@ GEM
     sqlite3 (1.4.2)
     thor (1.1.0)
     thread_safe (0.3.6)
+    timecop (0.9.4)
     tzinfo (1.2.9)
       thread_safe (~> 0.1)
     unicode-display_width (2.0.0)
@@ -243,6 +247,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers (~> 0.10.0)
+  annotate (>= 3.1)
   bootsnap (>= 1.1.0)
   bullet (>= 6.1)
   factory_bot_rails (~> 6.2)
@@ -262,6 +267,7 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   sprockets (~> 3.7.2)
   sqlite3 (~> 1.4.2)
+  timecop (>= 0.9)
 
 RUBY VERSION
    ruby 2.7.4p191

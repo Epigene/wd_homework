@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  scope "/api/v1" do
+    resources :tags, only: %i[index create update]
+    resources :tasks, only: %i[index create update]
+  end
 end

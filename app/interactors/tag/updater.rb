@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Tag::Creator
+class Tag::Updater
   include ServiceApi
 
   def initialize(params)
