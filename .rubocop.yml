@@ -62,6 +62,9 @@ AllCops:
     - '**/Vagabondfile'
     - '**/Vagrantfile'
   Exclude:
+    - 'bin/**/*'
+    - 'db/schema.rb'
+    - 'lib/tasks/**/*'
     - 'node_modules/**/*'
     - 'tmp/**/*'
     - 'vendor/**/*'
@@ -156,6 +159,8 @@ Layout/SpaceInsideHashLiteralBraces:
 
 Lint/ConstantResolution:
   Enabled: false
+Lint/NumberConversion:
+  Enabled: false
 
 Metrics/BlockLength:
   Exclude:
@@ -164,6 +169,11 @@ Metrics/MethodLength:
   Max: 20
 Metrics/ModuleLength:
   Max: 200  
+
+Naming/MethodParameterName:
+  AllowedNames:
+    - lt
+    - gt
 
 Rails/LexicallyScopedActionFilter:
   Enabled: false
@@ -197,6 +207,8 @@ Style/ConstantVisibility:
   Enabled: false
 Style/Copyright:
   Enabled: false
+Style/DisableCopsWithinSourceCodeDirective:
+  Enabled: false  
 Style/Documentation:
   Exclude:
     - "db/migrate/**/*"
@@ -209,6 +221,8 @@ Style/InlineComment:
 Style/MethodCallWithArgsParentheses:
   Exclude:
     - "spec/**/*"
+Style/MissingElse:
+  EnforcedStyle: case 
 Style/NestedParenthesizedCalls:
   Exclude:
     - "spec/**/*" 

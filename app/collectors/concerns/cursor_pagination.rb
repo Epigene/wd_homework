@@ -35,7 +35,9 @@ module CursorPagination
     }.freeze
 
     # Supports naive cursor-pagination by a single unique parameter, like :id.
-    def page_records_by_single_cursor(collection:, cursor_field: :id, regular_order: :asc, reverse_order: :desc)
+    def page_records_by_single_cursor(
+      collection:, cursor_field: :id, regular_order: :asc, reverse_order: :desc
+    )
       collection =
         if params.dig(:page, :after).present?
           collection.where_field(
@@ -43,23 +45,33 @@ module CursorPagination
             ORDERING_TO_QUERY_MAPPING[regular_order] => params.dig(:page, :after)
           )
         elsif params.dig(:page, :before).present?
-          before_page_ids =
-            collection.
-            where_field(
-              cursor_field,
-              ORDERING_TO_QUERY_MAPPING[reverse_order] =>
-                params.dig(:page, :before)
-            ).
-            # crucial to order reversely than the final order
-            order(cursor_field => reverse_order).
-            limit(page_size).select(cursor_field)
-
-          collection.where(cursor_field => before_page_ids)
+          page_before_records_by_single_cursor(
+            collection: collection,
+            cursor_field: cursor_field,
+            reverse_order: reverse_order
+          )
         else
           collection
         end
 
       collection.order(cursor_field => regular_order).limit(page_size)
+    end
+
+    def page_before_records_by_single_cursor(
+      collection:, cursor_field: :id, reverse_order: :desc
+    )
+      before_page_ids =
+        collection.
+        where_field(
+          cursor_field,
+          ORDERING_TO_QUERY_MAPPING[reverse_order] =>
+            params.dig(:page, :before)
+        ).
+        # crucial to order reversely than the final order
+        order(cursor_field => reverse_order).
+        limit(page_size).select(cursor_field)
+
+      collection.where(cursor_field => before_page_ids)
     end
 
     # @return [Hash, nil]
@@ -81,7 +93,7 @@ module CursorPagination
         return {json: non_positive_page_size_error_data, status: :bad_request}
       end
 
-      if size.to_i > send(:class)::MAX_PAGE_SIZE
+      if size.to_i > __send__(:class)::MAX_PAGE_SIZE
         return {json: too_large_page_size_error_data, status: :bad_request}
       end
 

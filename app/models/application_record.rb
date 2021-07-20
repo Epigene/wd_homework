@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# abstract parent model
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 
@@ -8,29 +9,23 @@ class ApplicationRecord < ActiveRecord::Base
   # Keywords mean [greater_than, greater_or_equal_than, less_than, and less_or_equal_than] respectively
   #
   # @return [QueryObject]
-  # rubocop:disable Metrics/ParameterLists,Naming/MethodParameterName
   def self.where_field(field, gt: nil, gte: nil, lt: nil, lte: nil)
     collection = all
 
-    if gt.present?
-      collection = collection.where("#{ table_name }.#{ field } > ?", gt)
-    end
+    gt.present? &&
+      collection = collection.where("#{table_name}.#{field} > ?", gt)
 
-    if gte.present?
-      collection = collection.where("#{ table_name }.#{ field } >= ?", gte)
-    end
+    gte.present? &&
+      collection = collection.where("#{table_name}.#{field} >= ?", gte)
 
-    if lt.present?
-      collection = collection.where("#{ table_name }.#{ field } < ?", lt)
-    end
+    lt.present? &&
+      collection = collection.where("#{table_name}.#{field} < ?", lt)
 
-    if lte.present?
-      collection = collection.where("#{ table_name }.#{ field } <= ?", lte)
-    end
+    lte.present? &&
+      collection = collection.where("#{table_name}.#{field} <= ?", lte)
 
     collection
   end
-  # rubocop:enable Metrics/ParameterLists,Naming/MethodParameterName
 
   singleton_class.__send__(:alias_method, :stamp, :where_field)
 end
