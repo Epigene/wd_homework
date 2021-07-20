@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Serializer for Taks resources
 class TaskSerializer < ActiveModel::Serializer
   attribute :id
   attribute :created_at
@@ -10,6 +11,6 @@ class TaskSerializer < ActiveModel::Serializer
   # Rather than serializing the whole :tags association, merely returning an array of tag titles
   # @return [Array]
   def tags
-    ["TODO"]
+    object.tags.pluck(:title).sort
   end
 end

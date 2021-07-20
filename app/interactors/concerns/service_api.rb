@@ -5,7 +5,9 @@
 module ServiceApi
   extend ActiveSupport::Concern
 
+  # Module for class method definitions
   module ClassMethods
+    # wraps instance #call
     def call(**options, &block)
       new(**options).call(&block)
     end

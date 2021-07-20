@@ -4,28 +4,32 @@
 class TasksController < ApplicationController
   # GET /api/v1/tasks
   def index
-    render(json: Task::IndexCollector.call(params: params.permit!.to_h))
+    render(json: Task::IndexCollector.call(params: clean_params))
   end
 
   # POST /api/v1/tasks
   def create
-    outcome = Task::Creator.call(params: params.permit!.to_hash)
+    outcome = Task::Creator.call(params: clean_params)
 
-    if outcome[:success]
-      head(201)
-    else
-      render(json: {errors: invalid_record_errors(outcome[:task]), status: :bad_request})
-    end
+    render_outcome(outcome)
   end
 
   # PUT /api/v1/tasks/:id
   def update
-    outcome = Task::Updater.call(params: params.permit!.to_hash)
+    outcome = Task::Updater.call(params: clean_params)
 
-    if outcome[:success]
-      head(201)
-    else
-      render(json: {errors: invalid_record_errors(outcome[:task]), status: :bad_request})
-    end
+    render_outcome(outcome)
   end
+
+  private
+
+    def render_outcome(outcome)
+      if outcome[:success]
+        render(json: outcome[:task], adapter: :json)
+      elsif outcome[:task].blank?
+        render(json: {}, status: :not_found)
+      else
+        render(json: {errors: invalid_record_errors(outcome[:task])}, status: :bad_request)
+      end
+    end
 end

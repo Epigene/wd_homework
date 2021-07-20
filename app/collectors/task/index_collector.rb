@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
+# Task::IndexCollector.call(params: params)
 class Task::IndexCollector
   include ServiceApi
   include CursorPagination
 
-  def initialize(params:)
-    @params = params
-  end
+  private
 
-  def call
-
-  end
+    def base_collection
+      Task.all
+    end
 end

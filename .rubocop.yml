@@ -142,6 +142,7 @@ Layout/LineLength:
     - ^\s*class
     - ^\s*module
     - ^\s*describe
+    - ^\s*#
 Layout/RedundantLineBreak:  
   Enabled: false
 Layout/SingleLineBlockChain:
@@ -182,10 +183,16 @@ RSpec/MessageExpectation:
 RSpec/MessageSpies:
   EnforcedStyle: receive
 RSpec/MultipleExpectations:
-  Max: 10  
+  Max: 10 
+RSpec/MultipleMemoizedHelpers:
+  Max: 10   
+RSpec/NestedGroups:
+  Max: 5  
 
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact
+  Exclude:    
+    - "config/**/*"
 Style/ConstantVisibility:
   Enabled: false
 Style/Copyright:
@@ -202,6 +209,17 @@ Style/InlineComment:
 Style/MethodCallWithArgsParentheses:
   Exclude:
     - "spec/**/*"
+Style/NestedParenthesizedCalls:
+  Exclude:
+    - "spec/**/*" 
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    default: '[]'
+    '%q': '()'
+    '%Q': '()'
+    '%r': "''"
+Style/RegexpLiteral:
+  EnforcedStyle: percent_r
 Style/StringHashKeys:
   Enabled: false    
 Style/StringLiterals:

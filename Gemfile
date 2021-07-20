@@ -55,5 +55,6 @@ group :test do
   gem "factory_bot_rails", "~> 6.2"
   gem "shoulda-matchers", "~> 5.0"
   gem "simplecov", "~> 0.21", require: false
+  gem "test-prof", ">= 1.0"
   gem "timecop", ">= 0.9"
 end

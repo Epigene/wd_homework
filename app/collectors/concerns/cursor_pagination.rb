@@ -15,6 +15,7 @@ module CursorPagination
     attr_reader :params
   end
 
+  # initializer
   def initialize(params:)
     @params = params
   end
