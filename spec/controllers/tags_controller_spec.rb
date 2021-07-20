@@ -54,8 +54,8 @@ RSpec.describe TagsController, type: :request do
         expect(response.code).to eq("200")
 
         expect(response.body).to eq(
-          '{"tag":{"id":1001,"created_at":"2021-01-10T12:00:00Z",'\
-          '"updated_at":"2021-01-10T12:00:00Z","title":"tag_1"}}'
+          '{"id":1001,"created_at":"2021-01-10T12:00:00Z",'\
+          '"updated_at":"2021-01-10T12:00:00Z","title":"tag_1"}'
         )
       end
     end
@@ -101,8 +101,8 @@ RSpec.describe TagsController, type: :request do
         expect(response.code).to eq("200")
 
         expect(response.body).to eq(
-          '{"tag":{"id":1002,"created_at":"2021-01-12T12:00:00Z",'\
-          '"updated_at":"2021-01-12T12:00:00Z","title":"tag_2"}}'
+          '{"id":1002,"created_at":"2021-01-12T12:00:00Z",'\
+          '"updated_at":"2021-01-12T12:00:00Z","title":"tag_2"}'
         )
       end
     end

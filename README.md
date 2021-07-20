@@ -17,13 +17,13 @@ $ rails db:create db:migrate db:seed
 ## Running postman specs
 ```
 $ rails s -b 127.0.0.1 -p 3000
-TODO
+Import 'fixed_postman_tests.json' into postman and run in order, for index action requests expect only the "fixed" tests to pass.
 ```
 
 ## Running RSpec
 ```
-$ rspec
-# check soverage/ for 100% cov
+$ COV=1 rspec
+# check coverage/ for 100% cov
 ```
 
 ## Running rubocop

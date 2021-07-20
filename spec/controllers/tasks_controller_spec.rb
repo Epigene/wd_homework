@@ -55,8 +55,8 @@ RSpec.describe TasksController, type: :request do
         expect(response.code).to eq("200")
 
         expect(response.body).to eq(
-          '{"task":{"id":1001,"created_at":"2021-01-10T12:00:00Z",'\
-          '"updated_at":"2021-01-10T12:00:00Z","title":"homework1","tags":[]}}'
+          '{"id":1001,"created_at":"2021-01-10T12:00:00Z",'\
+          '"updated_at":"2021-01-10T12:00:00Z","title":"homework1","tags":[]}'
         )
       end
     end
@@ -104,9 +104,9 @@ RSpec.describe TasksController, type: :request do
         expect(response.code).to eq("200")
 
         expect(response.body).to eq(
-          "{\"task\":{\"id\":1002,\"created_at\":\"2021-01-12T12:00:00Z\","\
+          "{\"id\":1002,\"created_at\":\"2021-01-12T12:00:00Z\","\
           "\"updated_at\":\"2021-01-12T12:00:00Z\",\"title\":\"homework2\","\
-          "\"tags\":[\"#{tag1}\",\"#{tag2}\"]}}"
+          "\"tags\":[\"#{tag1}\",\"#{tag2}\"]}"
         )
       end
     end

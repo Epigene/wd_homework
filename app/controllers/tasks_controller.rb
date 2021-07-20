@@ -25,7 +25,7 @@ class TasksController < ApplicationController
 
     def render_outcome(outcome)
       if outcome[:success]
-        render(json: outcome[:task], adapter: :json)
+        render(json: outcome[:task])
       elsif outcome[:task].blank?
         render(json: {}, status: :not_found)
       else
