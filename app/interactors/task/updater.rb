@@ -38,6 +38,9 @@ class Task::Updater
       @task = Task.find_by(id: @id)
     end
 
+    # A B
+    #   B C D
+
     # update of tags is tricky in that it can produce three groups of changes:
     #  1. tags being removed (exist on record, but not in params)
     #  2. tags unchanged (exist both on record and in params)

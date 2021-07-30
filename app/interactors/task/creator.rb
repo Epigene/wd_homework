@@ -37,12 +37,21 @@ class Task::Creator
     def ensure_tags!
       return unless @params.key?(:tags)
 
-      Array.wrap(@params[:tags]).each do |tag_title|
-        tag =
-          Tag.find_by(title: tag_title) ||
-          Tag::Creator.call(params: {title: tag_title})[:tag]
+      missing_tags = Array.wrap(@params[:tags]).to_set - existing_tag_data.to_set
 
-        TaskTag.where(task: task, tag: tag).first_or_create!
+      just_created_tag_ids =
+        missing_tags.map do |tag_title, _id|
+          Tag::Creator.call(params: {title: tag_title})[:tag].id
+        end
+
+      joinable_tag_ids = just_created_tag_ids + existing_tag_data.map(&:second)
+
+      joinable_tag_ids.each do |tag_id|
+        TaskTag.create!(task: task, tag_id: tag_id)
       end
+    end
+
+    def existing_tag_data
+      Tag.where(title: @params[:tags]).pluck(:title, :id)
     end
 end
